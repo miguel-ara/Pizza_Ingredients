@@ -12,6 +12,6 @@ been done for every kind of pizza, we have the number of pizzas of each type ord
 ingredientes by the number of pizzas of such type ordered in one week by another factor, related with the size. For each size, we consider the following
 units of each ingredient in one particular pizza: {s:1, m:2, l:3, xl: 4, xxl: 5}
 
-Once the number of ingredients has been calculated, leaving room for some misestimation, the final csv is generated with the name "compra_semanal_ingredientes"
+Once the number of ingredients has been calculated, leaving room for some misestimation, the final csv is generated with the name "compra_semanal_ingredientes.csv"
 This file contains two columns "Ingredient" and "Amount (units)", which is a kind of shopping list Pizza Maven´s manager should follow each week to be efficient
 and throw almost no food at all.
