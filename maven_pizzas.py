@@ -17,30 +17,32 @@ TAM = ['s','m','l','xl', 'xxl']
 
 def extract():
 
-    # Carga los datos de los csvs correspondientes a los pedidos, las pizzas y los ingredintes de las pizzas
+    # Carga los datos de los csvs correspondientes a los pedidos, las pizzas, los ingredintes y las fechas.
 
     pedidos = pd.read_csv("order_details.csv", sep = ",", encoding = "UTF-8")
     pizzas = pd.read_csv("pizzas.csv", sep = ",", encoding = "UTF-8")
     ingredientes = pd.read_csv("pizza_types.csv", sep = ",", encoding = "LATIN-1")
-    return pedidos, pizzas, ingredientes
+    fechas = pd.read_csv("orders.csv", sep = ',', encoding = 'UTF-8')
+
+    return pedidos, pizzas, ingredientes, fechas
 
 
-def transform(pedidos, pizzas, ingredientes):
+def transform(pedidos, pizzas, ingredientes, fechas):
 
-    # Recibe los 3 dataframes, pedidos, pizzas e ingredientes y va trasnformando los datos para obtener
+    # Recibe los 4 dataframes, pedidos, pizzas, ingredientes y fechas y va trasnformando los datos para obtener
     # un diccionario con los ingredientes a comprar semanalmente. Primero, genera un informe para 
     # cada dataframe extraído (ver función informe_datos)
 
-    informe_datos(pedidos, pizzas, ingredientes)
+    informe_datos(pedidos, pizzas, ingredientes, fechas)
 
     num_pizzas_sem = {}
     dict_ingredientes = {}
 
-    # Para cada pizza obtenida del dataframe de, sumamos el número de veces que se ha pedido en todo el
+    # Para cada pizza obtenida del dataframe de pizzas sumamos el número de veces que se ha pedido en todo el
     # año, lo dividimos entre 52 (semanas de un año) tomando la parte entera y sumamos 1. De esta manera
     # estamos aproximando por arriba el número de pizzas de cada tipo que se piden en una semana.
 
-    for pizza in pizzas['pizza_id']:
+    for pizza in  pizzas['pizza_id']:
         num_pizzas_sem[pizza] = int(pedidos[pedidos['pizza_id'] == pizza]['quantity'].sum() // 52 + 1) # Redondeamos para arriba
 
     # Para cada pizza, tomamos sus ingredientes. Pero como quiero tener un diccionario con todos los
@@ -104,10 +106,10 @@ def calcular_ingredientes(pizza, pizza_sin_procesar, multiplicador, dict_ingredi
         dict_ingredientes[ingredient] += num_pizzas_sem[pizza_sin_procesar]*multiplicador
 
 
-def informe_datos(pedidos, pizzas, ingredientes):
+def informe_datos(pedidos, pizzas, ingredientes, fechas):
 
-    dataframes = [pedidos, pizzas, ingredientes]
-    archivos = ["order_details.csv", "pizzas.csv", "pizza_types.csv"]
+    dataframes = [pedidos, pizzas, ingredientes, fechas]
+    archivos = ["order_details.csv", "pizzas.csv", "pizza_types.csv", "orders.csv"]
 
     # df.info() aporta información extra que no nos interesa, mejor obtener a mano solo lo que nos interesa del dataframe.
     # Esto lo haremos para cada dataframe que hemos cargado, y guardaremos el resultado en un csv para cada dataframe
@@ -135,8 +137,8 @@ def ETL():
 
     # ETL incluyendo informe de cada dataframe extraído
 
-    pedidos, pizzas, ingredientes = extract()
-    compra = transform(pedidos, pizzas, ingredientes)
+    pedidos, pizzas, ingredientes, fechas = extract()
+    compra = transform(pedidos, pizzas, ingredientes, fechas)
     load(compra)
 
 

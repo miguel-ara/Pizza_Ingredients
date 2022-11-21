@@ -1,2 +1,5 @@
 ,Nº de NaNs,Nº de Nulls,Dtype
-"order_details_id,order_id,pizza_id,quantity",0,0,object
+order_details_id,0,0,int64
+order_id,0,0,int64
+pizza_id,0,0,object
+quantity,0,0,int64
