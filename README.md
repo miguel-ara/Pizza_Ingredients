@@ -1,5 +1,5 @@
 # Pizza_Ingredients
-Based on pizza orders, determing the ingredients Pizza Maven should buy in order to become a more efficient restaurant in terms of stock management.
+Based on pizza orders, determining the ingredients Pizza Maven should buy in order to become a more efficient restaurant in terms of stock management.
 To do so, in the first place you have to run in the python terminal the following command: "pip install -r requirements.txt", which will automatically
 download the necessary libraries for the actual program to work correctly. The program is called "maven_pizzas.py" and uses the files given by
 Maven Pizzas "order_details.csv", "orders.csv", "pizzas.csv" and "pizza_types.csv" to predict and estimate the ingredients Pizza Maven´s manager should by each week
